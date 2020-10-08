@@ -6,6 +6,7 @@
     require_once(__DIR__."/src/domain/model/model.php");
     require_once(__DIR__."/src/domain/usecases/usecases.php");
     require_once(__DIR__."/src/data/interfaces/interfaces.php");
+    require_once(__DIR__."/src/data/usecases/usecases.php");
 
     header("Access-Control-Allow-Origin: *");
     header('Access-Control-Allow-Methods: *');
