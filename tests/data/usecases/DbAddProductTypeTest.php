@@ -18,7 +18,6 @@ class DbAddProductType {
 final class DbAddProductTypeTest extends TestCase
 {
   private Faker\Generator $faker;
-  private DbAddProductType $sut;
   private ProductType $productType;
   private AddProductTypeRepository $addProductTypeRepositoryMock;
   private AddProductTypeModel $addProductTypeModel;
@@ -34,7 +33,8 @@ final class DbAddProductTypeTest extends TestCase
     $mock = $this->createMock('AddProductTypeRepository');
     $mock->expects($this->once())
         ->method('add')
-        ->willReturn($this->productType);
+        ->willReturn($this->productType)
+        ->with($this->addProductTypeModel);
     $this->addProductTypeRepositoryMock = $mock;
   }
 
