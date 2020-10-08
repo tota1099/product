@@ -17,8 +17,6 @@ class DbAddProductType {
 
 final class DbAddProductTypeTest extends TestCase
 {
-  use Prophecy\PhpUnit\ProphecyTrait;
-
   private Faker\Generator $faker;
   private DbAddProductType $sut;
   private ProductType $productType;
