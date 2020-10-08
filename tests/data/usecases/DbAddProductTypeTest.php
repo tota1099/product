@@ -19,27 +19,40 @@ final class DbAddProductTypeTest extends TestCase
 {
   use Prophecy\PhpUnit\ProphecyTrait;
 
-  public function testShouldCallAddProductRepositoryWithCorrectValues(): void
+  private DbAddProductType $sut;
+  private ProductType $productType;
+  private AddProductTypeRepository $addProductTypeRepositoryMock;
+  private AddProductTypeModel $addProductTypeModel;
+
+  protected function setUp() : void
   {
     $faker = Faker\Factory::create();
-    $productData = new AddProductTypeModel($faker->name());
-    $mock = $this->prophesize(AddProductTypeRepository::class);
-    $productType = new ProductType($faker->randomDigit(), $faker->name());
-    $mock->add($productData)->willReturn($productType)->shouldBeCalledOnce();
+    $this->productType = new ProductType($faker->randomDigit(), $faker->name());
+  }
 
-    $sut = new DbAddProductType($mock->reveal());
-    $sut->add($productData);
+  private function mockSuccess() {
+    $faker = Faker\Factory::create();
+    $this->addProductTypeModel = new AddProductTypeModel($faker->name());
+    $mock = $this->prophesize(AddProductTypeRepository::class);
+    $mock->add($this->addProductTypeModel)->willReturn($this->productType)->shouldBeCalledOnce();
+    $this->addProductTypeRepositoryMock = $mock->reveal();
+  }
+
+  public function testShouldCallAddProductRepositoryWithCorrectValues(): void
+  {
+    $this->mockSuccess();
+
+    $sut = new DbAddProductType($this->addProductTypeRepositoryMock);
+
+    $sut->add($this->addProductTypeModel);
   }
 
   public function testShouldReturnProductTypeOnSuccess(): void
   {
-    $faker = Faker\Factory::create();
-    $productData = new AddProductTypeModel($faker->name());
-    $mock = $this->prophesize(AddProductTypeRepository::class);
-    $productType = new ProductType($faker->randomDigit(), $faker->name());
-    $mock->add($productData)->willReturn($productType)->shouldBeCalledOnce();
+    $this->mockSuccess();
 
-    $sut = new DbAddProductType($mock->reveal());
-    $this->assertSame($productType, $sut->add($productData));
+    $sut = new DbAddProductType($this->addProductTypeRepositoryMock);
+
+    $this->assertSame($this->productType, $sut->add($this->addProductTypeModel));
   }
 }
