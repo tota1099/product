@@ -2,19 +2,6 @@
 
 use PHPUnit\Framework\TestCase;
 
-class DbAddProductType {
-  private AddProductTypeRepository $addProductTypeRepository;
-
-  public function __construct(AddProductTypeRepository $addProductTypeRepository)
-  {
-    $this->addProductTypeRepository = $addProductTypeRepository;  
-  }
-
-  public function add(AddProductTypeModel $addProductModel) {
-    return $this->addProductTypeRepository->add($addProductModel);
-  }
-}
-
 final class DbAddProductTypeTest extends TestCase
 {
   private Faker\Generator $faker;
