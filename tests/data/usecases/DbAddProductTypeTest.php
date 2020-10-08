@@ -11,7 +11,7 @@ class DbAddProductType {
   }
 
   public function add(AddProductTypeModel $addProductModel) {
-    $this->addProductTypeRepository->add($addProductModel);
+    return $this->addProductTypeRepository->add($addProductModel);
   }
 }
 
@@ -24,9 +24,22 @@ final class DbAddProductTypeTest extends TestCase
     $faker = Faker\Factory::create();
     $productData = new AddProductTypeModel($faker->name());
     $mock = $this->prophesize(AddProductTypeRepository::class);
-    $mock->add($productData)->willReturn(new ProductType())->shouldBeCalledOnce();
+    $productType = new ProductType($faker->randomDigit(), $faker->name());
+    $mock->add($productData)->willReturn($productType)->shouldBeCalledOnce();
 
     $sut = new DbAddProductType($mock->reveal());
     $sut->add($productData);
+  }
+
+  public function testShouldReturnProductTypeOnSuccess(): void
+  {
+    $faker = Faker\Factory::create();
+    $productData = new AddProductTypeModel($faker->name());
+    $mock = $this->prophesize(AddProductTypeRepository::class);
+    $productType = new ProductType($faker->randomDigit(), $faker->name());
+    $mock->add($productData)->willReturn($productType)->shouldBeCalledOnce();
+
+    $sut = new DbAddProductType($mock->reveal());
+    $this->assertSame($productType, $sut->add($productData));
   }
 }
