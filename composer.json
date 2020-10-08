@@ -1,0 +1,7 @@
+{
+    "require": {
+        "phpunit/phpunit": "^9.4",
+        "fzaninotto/faker": "^1.9",
+        "phpspec/prophecy-phpunit": "^2.0"
+    }
+}
