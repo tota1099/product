@@ -19,6 +19,7 @@ final class DbAddProductTypeTest extends TestCase
 {
   use Prophecy\PhpUnit\ProphecyTrait;
 
+  private Faker\Generator $faker;
   private DbAddProductType $sut;
   private ProductType $productType;
   private AddProductTypeRepository $addProductTypeRepositoryMock;
@@ -26,16 +27,25 @@ final class DbAddProductTypeTest extends TestCase
 
   protected function setUp() : void
   {
-    $faker = Faker\Factory::create();
-    $this->productType = new ProductType($faker->randomDigit(), $faker->name());
+    $this->faker = Faker\Factory::create();
+    $this->productType = new ProductType($this->faker->randomDigit(), $this->faker->name());
+    $this->addProductTypeModel = new AddProductTypeModel($this->faker->name());
   }
 
   private function mockSuccess() {
-    $faker = Faker\Factory::create();
-    $this->addProductTypeModel = new AddProductTypeModel($faker->name());
-    $mock = $this->prophesize(AddProductTypeRepository::class);
-    $mock->add($this->addProductTypeModel)->willReturn($this->productType)->shouldBeCalledOnce();
-    $this->addProductTypeRepositoryMock = $mock->reveal();
+    $mock = $this->createMock('AddProductTypeRepository');
+    $mock->expects($this->once())
+        ->method('add')
+        ->willReturn($this->productType);
+    $this->addProductTypeRepositoryMock = $mock;
+  }
+
+  private function mockThrows() {
+    $mock = $this->createMock('AddProductTypeRepository');
+    $mock->expects($this->once())
+        ->method('add')
+        ->willThrowException(new Exception('any error'));
+    $this->addProductTypeRepositoryMock = $mock;
   }
 
   public function testShouldCallAddProductRepositoryWithCorrectValues(): void
@@ -54,5 +64,16 @@ final class DbAddProductTypeTest extends TestCase
     $sut = new DbAddProductType($this->addProductTypeRepositoryMock);
 
     $this->assertSame($this->productType, $sut->add($this->addProductTypeModel));
+  }
+
+  public function testShouldThrowIfRepositoryThrows(): void
+  {
+    $this->mockThrows();
+
+    $sut = new DbAddProductType($this->addProductTypeRepositoryMock);
+
+    $this->expectException(Exception::class);
+    $this->expectExceptionMessage('any error');
+    $sut->add($this->addProductTypeModel);
   }
 }
