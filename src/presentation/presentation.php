@@ -10,3 +10,4 @@ require_once(__DIR__ . '/helpers/Conflict.php');
 require_once(__DIR__ . '/helpers/ServerError.php');
 require_once(__DIR__ . '/controller/AddProductTypeController.php');
 require_once(__DIR__ . '/controller/AddProductController.php');
+require_once(__DIR__ . '/controller/AddTaxController.php');

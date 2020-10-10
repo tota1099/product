@@ -1,5 +1,5 @@
 <?php
 
 interface AddTax {
-  public function add(AddTax $addTax) : Tax;
+  public function add(AddTaxModel $addTaxModel) : Tax;
 }

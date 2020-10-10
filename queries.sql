@@ -15,3 +15,10 @@ CREATE TABLE `market`.`product` (
     REFERENCES `market`.`product_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+CREATE TABLE `market`.`tax` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `value` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC));
