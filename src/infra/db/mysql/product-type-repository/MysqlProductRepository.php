@@ -1,9 +1,9 @@
 <?php
 
 class MysqlProductRepository implements AddProductRepository, ExistsProductRepository {
-  private MysqlProductTypeRepository $mysqlProductTypeRepository;
+  private ExistsProductTypeRepository $mysqlProductTypeRepository;
   
-  public function __construct(MysqlProductTypeRepository $mysqlProductTypeRepository)
+  public function __construct(ExistsProductTypeRepository $mysqlProductTypeRepository)
   {
     $this->mysqlProductTypeRepository = $mysqlProductTypeRepository;
   }
