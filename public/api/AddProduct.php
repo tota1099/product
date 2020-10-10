@@ -4,9 +4,9 @@ require_once(__DIR__ . '/../../config.php');
 
 $body = json_decode(file_get_contents('php://input'), true);
 
-$productTypeRepository = new MysqlProductTypeRepository();
-$productRepository = new MysqlProductRepository($productTypeRepository);
-$addProduct = new DbAddProduct($productRepository);
+$productTypeRepository = new ProductTypeRepository();
+$productRepository = new ProductRepository();
+$addProduct = new DbAddProduct($productRepository, $productTypeRepository);
 $addProductController = new AddProductController($addProduct);
 
 $response = $addProductController->handle(new HttpRequest($body));
