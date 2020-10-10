@@ -11,7 +11,7 @@ class DbAddProductType implements AddProductType {
   public function add(AddProductTypeModel $addProductModel) : ProductType {
     try {
       return $this->addProductTypeRepository->add($addProductModel);
-    } catch (DuplicateEntryError $e) {
+    } catch (Exception $e) {
       throw $e;
     }
   }
