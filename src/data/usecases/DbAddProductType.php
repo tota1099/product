@@ -9,10 +9,10 @@ class DbAddProductType implements AddProductType {
   }
 
   public function add(AddProductTypeModel $addProductModel) : ProductType {
-    if($this->addProductTypeRepository->existsByName($addProductModel->name)){
-      throw new Exception('Record already exists!');
+    try {
+      return $this->addProductTypeRepository->add($addProductModel);
+    } catch (DuplicateEntryError $e) {
+      throw $e;
     }
-
-    return $this->addProductTypeRepository->add($addProductModel);
   }
 }

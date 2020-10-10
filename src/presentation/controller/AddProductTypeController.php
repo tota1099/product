@@ -18,6 +18,8 @@ class AddProductTypeController implements Controller {
         'id' => $productType->id,
         'name' => $productType->name,
       ]);
+    } catch(DuplicateEntryError $de) {
+      return new Conflict(['error' => 'Duplicate entry']);
     } catch(Exception $e) {
       return new ServerError();
     }
