@@ -1,6 +1,6 @@
 <?php
 
-class MysqlProductTypeRepository implements AddProductTypeRepository, ExistsProductTypeRepository {
+class ProductTypeRepository implements AddProductTypeRepository, ExistsProductTypeRepository {
   public function add(AddProductTypeModel $addProductTypeModel) : ProductType {
     $mysqlHelper = new MysqlHelper();
 
