@@ -1,6 +1,6 @@
 <?php
 
-class DbAddProduct {
+class DbAddProduct implements AddProduct {
   private AddProductRepository $addProductRepository;
 
   public function __construct(AddProductRepository $addProductRepository)
@@ -8,7 +8,7 @@ class DbAddProduct {
     $this->addProductRepository = $addProductRepository;  
   }
 
-  public function add(AddProductModel $addProductModel) {
+  public function add(AddProductModel $addProductModel) : Product {
     return $this->addProductRepository->add($addProductModel);
   }
 }

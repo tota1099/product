@@ -12,9 +12,8 @@ final class DbAddProductTest extends TestCase
   protected function setUp() : void
   {
     $this->faker = Faker\Factory::create();
-    $productType = new ProductType($this->faker->randomDigit(), $this->faker->name());
-    $this->product = new Product($this->faker->randomDigit(), $this->faker->name(), $this->faker->randomFloat(), $productType);
-    $this->addProductModel = new AddProductModel($this->faker->name(), $this->faker->randomFloat(), $productType);
+    $this->product = new Product($this->faker->randomDigit(), $this->faker->name(), $this->faker->randomFloat(), $this->faker->randomDigit());
+    $this->addProductModel = new AddProductModel($this->faker->name(), $this->faker->randomFloat(), $this->faker->randomDigit());
   }
 
   private function mockSuccess() {
@@ -34,7 +33,7 @@ final class DbAddProductTest extends TestCase
     $this->addProductRepositoryMock = $mock;
   }
 
-  public function testShouldCallAddProductRepositoryWithCorrectValues(): void
+  public function testShouldCallProductRepositoryWithCorrectValues(): void
   {
     $this->mockSuccess();
 

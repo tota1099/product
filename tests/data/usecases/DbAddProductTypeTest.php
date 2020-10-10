@@ -33,7 +33,7 @@ final class DbAddProductTypeTest extends TestCase
     $this->addProductTypeRepositoryMock = $mock;
   }
 
-  public function testShouldCallAddProductRepositoryWithCorrectValues(): void
+  public function testShouldCallProductRepositoryWithCorrectValues(): void
   {
     $this->mockSuccess();
 

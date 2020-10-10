@@ -16,21 +16,29 @@ class MysqlHelper {
   }
 
   public function insert($sql, $params = []) {
-    $this->connect();
-    $stmt= $this->getDataBase()->prepare($sql);
-    $stmt->execute($params);
-    $lastId = $this->getDataBase()->lastInsertId();
-    $this->disconnect();
-    return $lastId;
+    try {
+      $this->connect();
+      $stmt= $this->getDataBase()->prepare($sql);
+      $stmt->execute($params);
+      $lastId = $this->getDataBase()->lastInsertId();
+      $this->disconnect();
+      return $lastId;
+    } catch (Exception $e) {
+      throw $e;
+    }
   }
 
   public function exists($sql, $params = []) {
-    $this->connect();
-    $stmt = $this->getDataBase()->prepare($sql);
-    $stmt->execute($params);
-    $exists = $stmt->fetchColumn() > 0; 
-    $this->disconnect();
-    return $exists;
+    try {
+      $this->connect();
+      $stmt = $this->getDataBase()->prepare($sql);
+      $stmt->execute($params);
+      $exists = $stmt->fetchColumn() > 0; 
+      $this->disconnect();
+      return $exists;
+    } catch (Exception $e) {
+      throw $e;
+    }
   }
 
   public function getDataBase() {

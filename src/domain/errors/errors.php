@@ -1,3 +1,3 @@
 <?php
 
-require_once(__DIR__ . '/DuplicateEntryError.php');
+require_once(__DIR__ . '/DomainError.php');

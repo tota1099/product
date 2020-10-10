@@ -1,18 +1,14 @@
 <?php
 
 class DbAddProductType implements AddProductType {
-  private AddProductTypeRepository $addProductTypeRepository;
+  private AddProductTypeRepository $addProductTypeRepositoryMock;
 
-  public function __construct(AddProductTypeRepository $addProductTypeRepository)
+  public function __construct(AddProductTypeRepository $addProductTypeRepositoryMock)
   {
-    $this->addProductTypeRepository = $addProductTypeRepository;  
+    $this->addProductTypeRepositoryMock = $addProductTypeRepositoryMock;  
   }
 
-  public function add(AddProductTypeModel $addProductModel) : ProductType {
-    try {
-      return $this->addProductTypeRepository->add($addProductModel);
-    } catch (Exception $e) {
-      throw $e;
-    }
+  public function add(AddProductTypeModel $addProductTypeModel) : ProductType {
+    return $this->addProductTypeRepositoryMock->add($addProductTypeModel);
   }
 }
