@@ -10,6 +10,7 @@
     require_once(__DIR__."/src/data/usecases/usecases.php");
     require_once(__DIR__."/src/infra/db/mysql/mysql.php");
     require_once(__DIR__."/src/presentation/presentation.php");
+    require_once(__DIR__."/src/utils/utils.php");
 
     header("Access-Control-Allow-Origin: *");
     header('Access-Control-Allow-Methods: *');

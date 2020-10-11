@@ -2,10 +2,12 @@
 
 class AddProductController implements Controller {
   private AddProduct $addProduct;
+  private Validator $validator;
 
-  public function __construct(AddProduct $addProduct)
+  public function __construct(AddProduct $addProduct, Validator $validator)
   {
-    $this->addProduct = $addProduct; 
+    $this->addProduct = $addProduct;
+    $this->validator = $validator;
   }
 
   public function handle (HttpRequest $httpRequest) : HttpResponse {
@@ -15,6 +17,12 @@ class AddProductController implements Controller {
         if(empty($httpRequest->body[$field])) {
           return new BadRequest(new MissingParamError($field));
         }
+      }
+
+      $value = $httpRequest->body['value'];
+
+      if($value <= 0 || !$this->validator->isValidCurrency($value)) {
+        return new BadRequest(new InvalidParamError('value'));
       }
 
       $product = $this->addProduct->add(new AddProductModel($httpRequest->body['name'], $httpRequest->body['value'], $httpRequest->body['type']));
