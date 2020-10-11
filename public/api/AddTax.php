@@ -4,9 +4,10 @@ require_once(__DIR__ . '/../../config.php');
 
 $body = json_decode(file_get_contents('php://input'), true);
 
+$validatorAdapter = new ValidatorAdapter();
 $taxRepository = new TaxRepository();
 $addTax = new DbAddTax($taxRepository);
-$addTaxController = new AddTaxController($addTax);
+$addTaxController = new AddTaxController($addTax, $validatorAdapter);
 
 $response = $addTaxController->handle(new HttpRequest($body));
 
