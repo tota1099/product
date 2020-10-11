@@ -4,7 +4,7 @@ class TaxRepository implements AddTaxRepository, ExistsTaxRepository {
   public function add(AddTaxModel $addTaxModel) : Tax {
     $mysqlHelper = new MysqlHelper();
 
-    if($this->exists($addTaxModel->name)) {
+    if($this->exists('name', $addTaxModel->name)) {
       throw new DomainError('Duplicate entry');
     }
 
@@ -18,9 +18,9 @@ class TaxRepository implements AddTaxRepository, ExistsTaxRepository {
     );
   }
 
-  public function exists(String $name) : bool {
-    $sql = "SELECT COUNT(*) FROM tax WHERE name= ? ";
+  public function exists(String $field, String $value) : bool {
+    $sql = "SELECT COUNT(*) FROM tax WHERE {$field} = ? ";
     $mysqlHelper = new MysqlHelper();
-    return $mysqlHelper->exists($sql, [ $name ]);
+    return $mysqlHelper->exists($sql, [ $value ]);
   }
 }
