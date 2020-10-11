@@ -6,7 +6,12 @@ class RouteHelper {
     $body = [];
     if(!empty($input)) {
       $body = json_decode($input, true);
-      $body = array_map('trim', $body);
+      
+      if((json_last_error() == JSON_ERROR_NONE)) {
+        $body = array_map('trim', $body);
+      } else {
+        $body = [];
+      }
     }
 
     $response = $controller->handle(new HttpRequest($body));
