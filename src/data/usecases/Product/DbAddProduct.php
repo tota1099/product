@@ -1,10 +1,10 @@
 <?php
 
 class DbAddProduct implements AddProduct {
-  private AddProductRepository $addProductRepository;
+  private ProductRepository $addProductRepository;
   private ExistsProductTypeRepository $addProductTypeRepository;
 
-  public function __construct(AddProductRepository $addProductRepository, ExistsProductTypeRepository $addProductTypeRepository)
+  public function __construct(ProductRepository $addProductRepository, ExistsProductTypeRepository $addProductTypeRepository)
   {
     $this->addProductRepository = $addProductRepository;
     $this->addProductTypeRepository = $addProductTypeRepository;

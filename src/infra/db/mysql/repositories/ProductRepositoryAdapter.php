@@ -1,10 +1,10 @@
 <?php
-class ProductRepository implements AddProductRepository, ExistsProductRepository {
+class ProductRepositoryAdapter implements ProductRepository {
 
   public function add(AddProductModel $addProductModel) : Product {
     $mysqlHelper = new MysqlHelper();
 
-    if($this->exists($addProductModel->name)) {
+    if($this->exists('name', $addProductModel->name)) {
       throw new DomainError('Duplicate entry');
     }
 
@@ -19,9 +19,15 @@ class ProductRepository implements AddProductRepository, ExistsProductRepository
     );
   }
 
-  public function exists(String $name) : bool {
-    $sql = "SELECT COUNT(*) FROM product WHERE name= ? ";
+  public function exists(String $field, String $value) : bool {
+    $sql = "SELECT COUNT(*) FROM product WHERE {$field}= ? ";
     $mysqlHelper = new MysqlHelper();
-    return $mysqlHelper->exists($sql, [ $name ]);
+    return $mysqlHelper->exists($sql, [ $value ]);
+  }
+
+  public function remove(int $id ) : void {
+    $mysqlHelper = new MysqlHelper();
+    $sql = "DELETE FROM product WHERE id = ?";
+    $mysqlHelper->remove($sql, [ $id ]);
   }
 }

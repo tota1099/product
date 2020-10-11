@@ -6,7 +6,7 @@ final class DbAddProductTest extends TestCase
 {
   private Faker\Generator $faker;
   private Product $product;
-  private AddProductRepository $addProductRepositoryMock;
+  private ProductRepository $addProductRepositoryMock;
   private ExistsProductTypeRepository $addProductTypeRepositoryMock;
   private AddProductModel $addProductModel;
 
@@ -18,7 +18,7 @@ final class DbAddProductTest extends TestCase
   }
 
   private function mockSuccess() {
-    $mock = $this->createMock('AddProductRepository');
+    $mock = $this->createMock('ProductRepository');
     $mock->expects($this->once())
         ->method('add')
         ->willReturn($this->product)
@@ -33,7 +33,7 @@ final class DbAddProductTest extends TestCase
   }
 
   private function mockThrows() {
-    $mock = $this->createMock('AddProductRepository');
+    $mock = $this->createMock('ProductRepository');
     $mock->expects($this->once())
         ->method('add')
         ->willThrowException(new Exception('any error'));
