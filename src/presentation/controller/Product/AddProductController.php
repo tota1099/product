@@ -29,6 +29,8 @@ class AddProductController implements Controller {
       return new Ok([
         'id' => $product->id,
         'name' => $product->name,
+        'value'=> $product->value,
+        'type' => $product->type,
       ]);
     } catch(DomainError $de) {
       return new Conflict(['error' => $de->getMessage()]);

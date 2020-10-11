@@ -24,6 +24,13 @@ class MysqlHelper {
     return $lastId;
   }
 
+  public function update($sql, $params = []) {
+    $this->connect();
+    $stmt= $this->getDataBase()->prepare($sql);
+    $stmt->execute($params);
+    $this->disconnect();
+  }
+
   public function remove($sql, $params = []) {
     $this->connect();
     $stmt= $this->getDataBase()->prepare($sql);
