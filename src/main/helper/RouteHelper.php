@@ -2,7 +2,12 @@
 
 class RouteHelper {
   public static function route(Controller $controller) : void {
-    $body = json_decode(file_get_contents('php://input'), true);
+    $input = file_get_contents('php://input');
+    $body = [];
+    if(!empty($input)) {
+      $body = json_decode($input, true);
+      $body = array_map('trim', $body);
+    }
 
     $response = $controller->handle(new HttpRequest($body));
 
