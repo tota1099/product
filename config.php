@@ -11,6 +11,7 @@
     require_once(__DIR__."/src/infra/db/mysql/mysql.php");
     require_once(__DIR__."/src/presentation/presentation.php");
     require_once(__DIR__."/src/utils/utils.php");
+    require_once(__DIR__."/src/main/main.php");
 
     header("Access-Control-Allow-Origin: *");
     header('Access-Control-Allow-Methods: *');
