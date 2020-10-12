@@ -1,6 +1,18 @@
 <?php
 class ProductRepositoryAdapter implements ProductRepository {
 
+  public function show(int $id) : Array {
+    $sql = "SELECT * FROM product WHERE id = ? ";
+    $mysqlHelper = new MysqlHelper();
+    return $mysqlHelper->fetch($sql, [ $id ]);
+  }
+
+  public function index() : Array {
+    $sql = "SELECT * FROM product";
+    $mysqlHelper = new MysqlHelper();
+    return $mysqlHelper->fetchAll($sql);
+  }
+
   public function add(AddProductModel $addProductModel) : Product {
     $mysqlHelper = new MysqlHelper();
 
@@ -31,7 +43,7 @@ class ProductRepositoryAdapter implements ProductRepository {
   }
 
   public function exists(String $field, String $value) : bool {
-    $sql = "SELECT COUNT(*) FROM product WHERE {$field}= ? ";
+    $sql = "SELECT COUNT(*) FROM product WHERE {$field} = ? ";
     $mysqlHelper = new MysqlHelper();
     return $mysqlHelper->exists($sql, [ $value ]);
   }

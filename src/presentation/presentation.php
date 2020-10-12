@@ -13,6 +13,7 @@ require_once(__DIR__ . '/helpers/ServerError.php');
 require_once(__DIR__ . '/controller/Product/AddProductController.php');
 require_once(__DIR__ . '/controller/Product/UpdateProductController.php');
 require_once(__DIR__ . '/controller/Product/DeleteProductController.php');
+require_once(__DIR__ . '/controller/Product/LoadProductController.php');
 require_once(__DIR__ . '/controller/AddProductTypeController.php');
 require_once(__DIR__ . '/controller/AddTaxController.php');
 require_once(__DIR__ . '/controller/AddProductTaxController.php');

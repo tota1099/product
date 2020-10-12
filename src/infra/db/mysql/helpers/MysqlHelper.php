@@ -15,6 +15,24 @@ class MysqlHelper {
     $this->database = null;
   }
 
+  public function fetch($sql, $params = []) : Array {
+    $this->connect();
+    $stmt= $this->getDataBase()->prepare($sql);
+    $stmt->execute($params);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $this->disconnect();
+    return $result;
+  }
+
+  public function fetchAll($sql) : Array {
+    $this->connect();
+    $stmt= $this->getDataBase()->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $this->disconnect();
+    return $result;
+  }
+
   public function insert($sql, $params = []) {
     $this->connect();
     $stmt= $this->getDataBase()->prepare($sql);

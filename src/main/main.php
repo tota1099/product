@@ -3,6 +3,7 @@
 require_once(__DIR__ . '/factories/Product/AddProductFactory.php');
 require_once(__DIR__ . '/factories/Product/UpdateProductFactory.php');
 require_once(__DIR__ . '/factories/Product/RemoveProductFactory.php');
+require_once(__DIR__ . '/factories/Product/LoadProductFactory.php');
 require_once(__DIR__ . '/factories/AddProductTypeFactory.php');
 require_once(__DIR__ . '/factories/AddProductTypeTaxFactory.php');
 require_once(__DIR__ . '/factories/AddTaxFactory.php');
